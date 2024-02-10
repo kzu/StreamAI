@@ -35,7 +35,8 @@ public class AgentHub(IHttpClientFactory httpFactory, IConfiguration configurati
             Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json"),
             Headers =
             {
-                Authorization = new AuthenticationHeaderValue("Bearer", configuration["OpenAI:Key"]),
+                Authorization = new AuthenticationHeaderValue("Bearer", configuration["OpenAI:Key"] ?? 
+                    throw new InvalidOperationException("Please provide the OpenAI API key. See readme for more information.")),
             }
         }, HttpCompletionOption.ResponseHeadersRead, cancellation);
 

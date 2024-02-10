@@ -9,3 +9,13 @@ using no third-party libraries (even for OpenAI) beyond plain SignalR.
 
 https://github.com/kzu/StreamAI/assets/169707/114b8f6f-d7d2-4d98-82af-ed1c06d541ee
 
+## Running
+
+Before running the server, set your OpenAI API key by running:
+
+```shell
+dotnet user-secrets set OpenAI:Key <your key>
+```
+
+Then open the solution in Visual Studio and set both projects 
+as startup projects.
