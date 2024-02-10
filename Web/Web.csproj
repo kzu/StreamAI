@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>StreamAI</RootNamespace>
+    <AssemblyName>StreamAI.Web</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>df5c8f9e-6b16-43c0-9887-90f27b794d81</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
