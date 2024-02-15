@@ -26,6 +26,7 @@ while (true)
 
         await connection.StartAsync();
         Write(Emoji.Known.CheckMarkButton);
+        using var _ = connection.On<string>("Receive", response => MarkupLine($"[grey]{response}[/]"));
 
         await foreach (var line in connection.StreamAsync<string>("Ask", message, cts.Token))
         {
