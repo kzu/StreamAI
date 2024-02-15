@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.SignalR;
 using CheBot;
+using Azure.AI.OpenAI;
 
 namespace StreamAI;
 
@@ -26,6 +27,31 @@ public class TokenizingAgent(IAgent agent) : IAgent
         }
 
         await client.SendAsync("Receive", $"\r\nTokens used: {tokens}");
+    }
+}
+
+public class OpenAIAgent(IConfiguration configuration) : IAgent
+{
+    public async IAsyncEnumerable<string> Ask(IClientProxy client, string message, [EnumeratorCancellation] CancellationToken cancellation)
+    {
+       var oai = new OpenAIClient(configuration["OpenAI:Key"] ??
+           throw new InvalidOperationException("Please provide the OpenAI API key. See readme for more information."));
+
+        var options = new ChatCompletionsOptions
+        {
+            DeploymentName = "gpt-4-1106-preview",
+            Messages =
+            {
+                new ChatRequestUserMessage(message)
+            }
+        };
+
+        var response = await oai.GetChatCompletionsStreamingAsync(options, cancellation);
+        await foreach (var choice in response.EnumerateValues())
+        {
+            if (choice.ContentUpdate != null)
+                yield return choice.ContentUpdate;
+        }
     }
 }
 
