@@ -19,3 +19,9 @@ dotnet user-secrets set OpenAI:Key <your key>
 
 Then open the solution in Visual Studio and set both projects 
 as startup projects.
+
+# Who Needs Streaming?
+
+If you think you need to stream responses because the LLM is too slow, make yourself a favor and try [groq](https://wow.groq.com/).
+
+I can hardly think of a scenario where I'd need streaming anymore once that tech can run GPT-4 level models.
